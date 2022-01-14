@@ -78,7 +78,7 @@ public class DevClient {
                 .bodyValue(dev)
                 .retrieve()
                 .toBodilessEntity()
-                .subscribe(x -> {}, e -> {devView.printErrorUpdate(e);});
+                .subscribe(x -> {}, devView::printErrorUpdate);
     }
 
     public void delete() {
@@ -89,8 +89,8 @@ public class DevClient {
                 .retrieve()
                 .toBodilessEntity()
                 .subscribe(
-                        x -> {setCurrentId(null);},
-                        e -> {devView.printErrorDev(e);}
+                        x -> setCurrentId(null),
+                        devView::printErrorDelete
                 );
     }
 }
