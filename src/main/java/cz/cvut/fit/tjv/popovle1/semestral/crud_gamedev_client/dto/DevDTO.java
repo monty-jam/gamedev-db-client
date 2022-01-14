@@ -7,6 +7,8 @@ public class DevDTO {
     private String specialization;
     private Long studioId;
 
+    public DevDTO() {}
+
     public DevDTO(Long id, String name, String surname, String specialization, Long studioId) {
         this.id = id;
         this.name = name;

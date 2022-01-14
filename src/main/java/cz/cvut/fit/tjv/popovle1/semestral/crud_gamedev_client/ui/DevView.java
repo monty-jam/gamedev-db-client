@@ -5,6 +5,7 @@ import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.shell.ExitRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
@@ -14,8 +15,8 @@ import java.util.Collection;
 @Component
 public class DevView {
 
-    public void printAllUsers(Collection<DevDTO> users) {
-        users.forEach(d -> System.out.println("`" + d.getId() + " " + d.getName() + " " + d.getSurname() + "'"));
+    public void printAllDevs(Collection<DevDTO> devs) {
+        devs.forEach(d -> System.out.println("`" + d.getId() + " " + d.getName() + " " + d.getSurname() + "'"));
     }
 
     public void printDev(DevDTO ret) {
@@ -45,36 +46,61 @@ public class DevView {
         }
     }
 
-    public void printErrorCreate(WebClientException e) {
+    public void printErrorNotFound(Throwable e) {
+        if (e instanceof WebClientResponseException.NotFound) {
+            System.err.println(AnsiOutput.toString(
+                    AnsiColor.RED
+                    , "Developer does not exist.",
+                    AnsiColor.DEFAULT
+            ));
+        } else
+            printError(e);
+    }
+
+    public void printErrorStudioNotFound(Throwable e) {
+        if (e instanceof WebClientResponseException.NotFound) {
+            System.err.println(AnsiOutput.toString(
+                    AnsiColor.RED
+                    , "Studio does not exist.",
+                    AnsiColor.DEFAULT
+            ));
+        } else
+            printError(e);
+    }
+
+    public void printErrorAlreadyExists(WebClientException e) {
         if (e instanceof WebClientResponseException.Conflict) {
             System.err.println(AnsiOutput.toString(
-                    AnsiColor.RED
-                    , "Developer already exists.",
+                    AnsiColor.RED,
+                    "Developer already exists.",
                     AnsiColor.DEFAULT
             ));
         } else
             printError(e);
     }
 
-    public void printErrorUpdate(Throwable e) {
-        if (e instanceof WebClientResponseException.NotFound) {
+    public void printErrorTest(Throwable e) {
+        if (e instanceof WebClientResponseException) {
             System.err.println(AnsiOutput.toString(
-                    AnsiColor.RED
-                    , "Cannot update - user does not exist.",
+                    AnsiColor.RED,
+                    e.getMessage(),
                     AnsiColor.DEFAULT
             ));
-        } else
-            printError(e);
-    }
-
-    public void printErrorDelete(Throwable e) {
-        if (e instanceof WebClientResponseException.NotFound) {
+        } else if (e instanceof WebClientRequestException) {
             System.err.println(AnsiOutput.toString(
                     AnsiColor.RED
-                    , "User does not exist.",
+                    , "Cannot connect to API:",
                     AnsiColor.DEFAULT
             ));
-        } else
-            printError(e);
+            System.err.println(e.getMessage());
+            throw new ExitRequest();
+        } else {
+            System.err.println(AnsiOutput.toString(
+                    AnsiColor.RED
+                    , "Unknown error:",
+                    AnsiColor.DEFAULT
+            ));
+            System.err.println(e.getMessage());
+        }
     }
 }

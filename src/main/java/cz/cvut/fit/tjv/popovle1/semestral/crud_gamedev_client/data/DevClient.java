@@ -58,7 +58,7 @@ public class DevClient {
 
     public DevDTO read() {
         if(currentId == null)
-            throw new IllegalStateException("Current Id not set.");
+            throw new IllegalStateException("Current id is not set.");
         return devWebClient.get()
                 .uri("/{id}", currentId)
                 .accept(MediaType.APPLICATION_JSON)
@@ -78,7 +78,10 @@ public class DevClient {
                 .bodyValue(dev)
                 .retrieve()
                 .toBodilessEntity()
-                .subscribe(x -> {}, devView::printErrorUpdate);
+                .subscribe(
+                        x -> {},
+                        e -> {devView.printErrorTest(e);}
+                );
     }
 
     public void delete() {
@@ -89,8 +92,8 @@ public class DevClient {
                 .retrieve()
                 .toBodilessEntity()
                 .subscribe(
-                        x -> setCurrentId(null),
-                        devView::printErrorDelete
+                        x -> {setCurrentId(null);},
+                        e -> {devView.printErrorTest(e);}
                 );
     }
 }
