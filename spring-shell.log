@@ -32,3 +32,11 @@
 1642205612499:set-dev 1
 1642205640672:set-dev 2
 1642205649228:update-dev --name Artem --surname Shitin --specialization Investor --studio-id 10
+1642213762547:delete-dev
+1642213845566:set-dev 1
+1642213858778:set-dev 2
+1642213863078:read-dev
+1642213872933:delete-dev
+1642213907033:read-dev
+1642213982524:set-dev 1
+1642214114431:list-devs

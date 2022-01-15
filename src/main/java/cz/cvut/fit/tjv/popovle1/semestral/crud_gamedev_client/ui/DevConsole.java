@@ -8,8 +8,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.web.reactive.function.client.WebClientException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 @ShellComponent
@@ -43,7 +41,7 @@ public class DevConsole {
             var ret = devClient.create(newDev);
             devView.printDev(ret);
         } catch (WebClientException e) {
-            devView.printErrorStudioNotFound(e);
+            devView.printError(e);
         }
     }
 
@@ -52,7 +50,7 @@ public class DevConsole {
         try {
             devClient.setCurrentId(id);
         } catch (WebClientException e) {
-            devView.printErrorTest(e);
+            devView.printError(e);
         }
     }
 
@@ -75,7 +73,7 @@ public class DevConsole {
         try {
             devView.printDev(devClient.read());
         } catch (WebClientException e) {
-            devView.printErrorTest(e);
+            devView.printError(e);
         }
     }
 
@@ -88,7 +86,7 @@ public class DevConsole {
             else
                 devClient.update(new DevDTO(null, name, surname, specialization, Long.parseLong(studioId)));
         } catch (WebClientException e) {
-            devView.printErrorTest(e);
+            devView.printError(e);
         }
     }
 
@@ -98,7 +96,7 @@ public class DevConsole {
         try {
             devClient.delete();
         } catch (WebClientException e) {
-            devView.printErrorTest(e);
+            devView.printError(e);
         }
     }
 }

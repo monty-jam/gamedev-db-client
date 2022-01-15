@@ -80,7 +80,7 @@ public class DevClient {
                 .toBodilessEntity()
                 .subscribe(
                         x -> {},
-                        e -> {devView.printErrorTest(e);}
+                        e -> {devView.printError(e);}
                 );
     }
 
@@ -93,7 +93,7 @@ public class DevClient {
                 .toBodilessEntity()
                 .subscribe(
                         x -> {setCurrentId(null);},
-                        e -> {devView.printErrorTest(e);}
+                        e -> {devView.printError(e);}
                 );
     }
 }
