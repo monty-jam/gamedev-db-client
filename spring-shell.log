@@ -1,0 +1,34 @@
+1642202915543:help
+1642203030888:set-user --id 1
+1642203041807:set-dev --id 1
+1642203143658:dwdw
+1642203151626:set-dev --id 1
+1642203170670:set-dev --id 2
+1642203267409:help
+1642203271102:read-dev
+1642203359740:update-dev --name Daria --surname Shitina --specialization slut --studioId null
+1642203386940:update-dev --name Daria --surname Shitina --specialization slut --studioId
+1642203413570:update-dev --name Daria --surname Shitina --specialization slut --studioId 1
+1642203467896:update-dev --name Daria --surname Shitina --specialization slut --studio-id 1
+1642203472742:read-dev
+1642203487166:update-dev --name Daria --surname Shitina --specialization slut --studio-id null
+1642203493228:update-dev --name Daria --surname Shitina --specialization slut --studio-id
+1642203616038:read-dev
+1642203636398:{
+1642203649468:}
+1642203652335:unset-dev
+1642203662059:set-dev --id 2
+1642203668885:update-dev --name Daria --surname Shitina --specialization slut --studio-id /null
+1642203683210:update-dev --name Daria --surname Shitina --specialization slut --studio-id (Long)null
+1642205439969:set-dev --id 2
+1642205457502:update-dev --studio-id null
+1642205532460:update-dev --name Artem --surname Shitin --specialization Investor --studio-id null
+1642205535732:read-dev
+1642205555442:update-dev --name Artem --surname Shitin --specialization Investor --studio-id nu244f
+1642205571904:update-dev --name Artem --surname Shitin --specialization Investor --studio-id 1
+1642205574550:read-dev
+1642205605370:unset-dev
+1642205608413:read-dev 1
+1642205612499:set-dev 1
+1642205640672:set-dev 2
+1642205649228:update-dev --name Artem --surname Shitin --specialization Investor --studio-id 10

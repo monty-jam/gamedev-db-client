@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClientException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 @ShellComponent
 public class DevConsole {
@@ -32,9 +33,13 @@ public class DevConsole {
     }
 
     @ShellMethod("Create new developer")
-    public void createDev(String name, String surname, String specialization, Long studioId) {
+    public void createDev(String name, String surname, String specialization, String studioId) {
         try {
-            var newDev = new DevDTO(null, name, surname, specialization, studioId);
+            DevDTO newDev;
+            if (Objects.equals(studioId, "null"))
+                newDev = new DevDTO(null, name, surname, specialization, null);
+            else
+                newDev = new DevDTO(null, name, surname, specialization, Long.parseLong(studioId));
             var ret = devClient.create(newDev);
             devView.printDev(ret);
         } catch (WebClientException e) {
@@ -76,9 +81,12 @@ public class DevConsole {
 
     @ShellMethod("Update a developer")
     @ShellMethodAvailability("currentIdNeededAvailability")
-    public void updateDev(String name, String surname, String specialization, Long studioId) {
+    public void updateDev(String name, String surname, String specialization, String studioId) {
         try {
-            devClient.update(new DevDTO(null, name, surname, specialization, studioId));
+            if (Objects.equals(studioId, "null"))
+                devClient.update(new DevDTO(null, name, surname, specialization, null));
+            else
+                devClient.update(new DevDTO(null, name, surname, specialization, Long.parseLong(studioId)));
         } catch (WebClientException e) {
             devView.printErrorTest(e);
         }
